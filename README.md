@@ -1,6 +1,6 @@
-README for mathnotation.sty
+README for jkmath.sty
 
-mathnotation 0.1
+jkmath 0.1
 Created by Jonas Kaerts
 Updated 24th of March 2018
 
