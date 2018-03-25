@@ -1,0 +1,173 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[latin1]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{jkmath}
+\author{Jonas Kaerts}
+\title{The \texttt{jkmath} package}
+\begin{document}
+\maketitle
+
+\section{The package options}
+The package contains a few options with regards to subsets.
+\begin{description}
+    \item[subsetorder] You are a person that likes your symbols for subsets to resemble the symbols used for ordering numbers.
+    The command \verb|\subset| now displays the symbol $\subseteq$ while a new command \verb|\stsubset| (for strict subsets) can be used for dispaying the symbol $\subset$.
+    Similar behavior occurs with \verb|\supset| and \verb|\stsupset|.
+    \item[subsetnonorder] You are a person that likes variety.
+    Your symbols for subsets do not resemble the usual ordering symbols.
+    the command \verb|\subset| displays the symbol $\subset$ while the symbol \verb|\stsubset| displays as $\subsetneq$.
+    Same for \verb|supset| and \verb|stsupset|.
+    \item[subsetnonamb] You like your notation as unambiguous as possible.
+    The command \verb|\subset| displays the symbol $\subseteq$ while \verb|\stsubset| displays $\subsetneq$.
+    Again similar for \verb|\supset| and \verb|\stsupset|.
+\end{description}
+The advantage of this approach is that you can convert a document from one style of notation to another by simply changing the package option.
+
+There are also two options, \verb|bbsets| and \verb|bfsets| concerning the display of number systems.
+They provide the following shorthands:
+
+\begin{tabular}{llll}
+    Command & Option \verb|bbsets|& Option \verb|bfsets| & Usage\\
+    \verb|\N| & $\mathbb{N}$ & $\mathbf{N}$ & Natural numbers\\
+    \verb|\Z| & $\mathbb{Z}$ & $\mathbf{Z}$ & Integers\\
+    \verb|\Q| & $\mathbb{Q}$ & $\mathbf{Q}$ & Rational numbers\\
+    \verb|\R| & $\mathbb{R}$ & $\mathbf{R}$ & Real numbers\\
+    \verb|\C| & $\mathbb{C}$ & $\mathbf{C}$ & Complex numbers\\
+    \verb|\F| & $\mathbb{F}$ & $\mathbf{F}$ & Fields\\
+    \verb|\Aff| & $\mathbb{A}$ & $\mathbf{A}$ & Affine Space\\
+    \verb|\PP| & $\mathbb{P}$ & $\mathbf{P}$ & Projective Space\\
+\end{tabular}
+
+\section{Commands with arrays}
+\subsection{Systems of equations}
+This package uses the \verb|array|-package to define some useful math alignment.
+The first is the \verb|system| environment.
+There are two new column types (\verb|e| and \verb|o|) to get the spacing around operators right.
+You can then call the code
+
+\begin{verbatim}
+\begin{system}{rorer}
+4x & + & 3y & 7\\
+2x & - & 5y & 10
+\end{system}
+\end{verbatim}
+to get the result
+\[
+\begin{system}{rorer}
+4x & + & 3y & 7\\
+2x & - & 5y & 10
+\end{system}.
+\]
+
+This allows fine control over the alignment of a system of equations while still having the correct spacing.
+Note that the column type \verb|e| automatically inserts an equality sign.
+
+\subsection{Augmented matrices}
+
+A second class of commands are the augmented matrices.
+The environment \verb|augmentedmatrix| takes two arguments $n$ and $m$ and makes a matrix of $n+m$ columns with a vertical rule after the $n$-th column, allowing the typesetting of systems with (multiple) right hand sides in matrix form.
+The code
+
+\begin{verbatim}
+\begin{augmentedmatrix}{2}{2}
+1 & 2 & 3 & 4\\
+5 & 6 & 7 & 8
+\end{augmentedmatrix}
+\end{verbatim}
+has the following output:
+\[
+\begin{augmentedmatrix}{2}{2}
+1 & 2 & 3 & 4\\
+5 & 6 & 7 & 8
+\end{augmentedmatrix}
+\]
+
+At the moment there are two shorthand commands \verb|apmqty| and \verb|ipmqty| which take $m=1$ and $m=n$ respectively and insert parentheses.
+These are used for solving systems with one right hand side and for calculating inverse matrices.
+The shorthand name is inspired by the shorthands in the \verb|physics|-package.
+The code
+\begin{verbatim}
+\amqty{2}{1 & 2 & 3 \\ 4 & 5 & 6}
+\neq
+\ipmqty{3}{0 & 1 & 0 & 1 & 0 & 0\\
+-1 & 0 & 2 & 0 & 1 & 0\\
+0 & 0 & 3 & 0 & 0 & 1}
+\end{verbatim}
+produces the following output:
+\[\apmqty{2}{1 & 2 & 3 \\ 4 & 5 & 6}
+\neq
+\ipmqty{3}{0 & 1 & 0 & 1 & 0 & 0\\
+-1 & 0 & 2 & 0 & 1 & 0\\
+0 & 0 & 3 & 0 & 0 & 1}\]
+
+\section{Delimiters and intervals}
+
+I often use a script to check if my code is consistent in its use of delimters since \LaTeX\ allows you to have unmatched parentheses etc. in the text.
+The commands \verb|\lbrace|, \verb|\rbrace|, \verb|\lbrack| and \verb|\rbrack| are a godsend when I both want my script to give meaningful output and I only need one delimiter (such as in the \verb|system| environment).
+This package defines similar commands \verb|\lparens| and \verb|\rparens| for parentheses.
+
+Using these delimiter commands the package also defines four types of intervals: \verb|\oointerval|, \verb|\ccinterval|, \verb|\ocinterval| and \verb|\cointerval|.
+The o and c say whether the left or right endpoint is open or closed.
+The code
+\begin{verbatim}
+\cointerval{1,3} \cup \ccinterval{3,7} = \ccinterval{1,7}
+\end{verbatim}
+typesets the following output
+\[\cointerval{1,3} \cup \ccinterval{3,7} = \ccinterval{1,7}.\]
+You can define your own shorthands for these commands or redefine the style of the intervals.
+
+\section{Sets}
+
+A general macro for denoting sets is \verb|\set| which automatically places scalable braces around the argument.
+A scalable version of \verb|\mid|, called \verb|\where|, is also included.
+This makes sure the (readable) code
+\begin{verbatim}
+\set{x\in\mathbb{R} \where \frac{3}{4}x + 5 = 0}
+\end{verbatim}
+will give the following result:
+\[\set{x\in\mathbb{R} \where \frac{3}{4}x + 5 = 0}.\]
+
+A second macro is \verb|\restr| for denoting restritions of functions to subsets of their domain.
+Simple usage is \verb|\restr{f}_U| which displays $\restr{f}_U$.
+
+
+
+\section{Combinatorics}
+
+Using \verb|\genfrac| from \verb|amsmath| the package defines two commands for Stirling numbers of the first and second kind.
+Example usage:
+\begin{verbatim}
+\stirlingfirstkind{n}{k}=
+\stirlingsecondkind{-k}{-n}
+\end{verbatim}
+gives the output
+\[
+\stirlingfirstkind{n}{k}=
+\stirlingsecondkind{-k}{-n}.
+\]
+Shorthands for these two commands have yet to be defined.
+
+\section{Number Theory}
+Two commands (with identical results) \verb|\legendre| and \verb|\jacobi| are defined to typeset Legendre symbols and Jacobi symbols.
+The output is identical but their name differs to make the code more readable.
+Example usage:
+\begin{verbatim}
+\jacobi{a}{n} =
+\legendre{a}{p_1}^{e_1}
+\legendre{a}{p_2}^{e_2}\cdots 
+\legendre{a}{p_k}^{e_k}
+\end{verbatim}
+gives the output
+\[
+\jacobi{a}{n} =
+\legendre{a}{p_1}^{e_1}
+\legendre{a}{p_2}^{e_2}\cdots 
+\legendre{a}{p_k}^{e_k}
+\]
+
+\section{Names of mathematicians}
+This section describes three simple commands \verb|\mobius|, \verb|\cech| and \verb|\erdos| so you can mention \mobius, \cech\ and \erdos\ without any pain.
+\end{document}
