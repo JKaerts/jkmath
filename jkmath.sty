@@ -80,10 +80,10 @@
 % Intervals
 
 
-\newcommand{\oointerval}[1]{\lparen #1 \rparen}
-\newcommand{\ccinterval}[1]{\lbrack #1 \rbrack}
-\newcommand{\ocinterval}[1]{\lparen #1 \rbrack}
-\newcommand{\cointerval}[1]{\lbrack #1 \rparen}
+\DeclarePairedDelimiter\oointerval{\lparen}{\rparen}
+\DeclarePairedDelimiter\ccinterval{\lbrack}{\rbrack}
+\DeclarePairedDelimiter\ocinterval{\lparen}{\rbrack}
+\DeclarePairedDelimiter\cointerval{\lbrack}{\rparen}
 
 % Sets
 \newcommand{\set}[1]{\left\{#1\right\}}
