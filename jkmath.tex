@@ -4,6 +4,7 @@
 \usepackage{amsfonts}
 \usepackage{amssymb}
 \usepackage{graphicx}
+\usepackage{longtable}
 \usepackage{jkmath}
 \author{Jonas Kaerts}
 \title{The \texttt{jkmath} package}
@@ -111,13 +112,14 @@ This package depends on \verb|mathtools| so the commands \verb|\lparens| and \ve
 
 Using these delimiter commands the package also defines four types of intervals: \verb|\oointerval|, \verb|\ccinterval|, \verb|\ocinterval| and \verb|\cointerval|.
 The o and c denote whether the left or right endpoint is open or closed.
-The code
-\begin{verbatim}
-\cointerval{1,3} \cup \ccinterval{3,7} = \ccinterval{1,7}
-\end{verbatim}
-typesets the following output
-\[\cointerval{1,3} \cup \ccinterval{3,7} = \ccinterval{1,7}.\]
-You can define your own shorthands for these commands or redefine the style of the intervals.
+\begin{longtable}[l]{ l l p{6cm} }
+&\verb|\oointerval{1, 3}| $\displaystyle\rightarrow\oointerval{1, 3}$ & interval open on both ends\\
+&\verb|\ocinterval{1, 3}| $\displaystyle\rightarrow\ocinterval{1, 3}$ & interval open on left side and closed on right\\
+&\verb|\cointerval{1, 3}| $\displaystyle\rightarrow\cointerval{1, 3}$ & interval closed on left side and open on right\\
+&\verb|\ccinterval{1, 3}| $\displaystyle\rightarrow\ccinterval{1, 3}$ & interval closed on both sides\\
+\end{longtable}
+
+All intervals scale with their argument. You can define your own shorthands for these commands.
 
 \section{Sets}
 
@@ -133,40 +135,35 @@ will give the following result:
 A second macro is \verb|\restr| for denoting restritions of functions to subsets of their domain.
 Simple usage is \verb|\restr{f}_U| which displays $\restr{f}_U$.
 
+\section{Norms}
 
+If the user has not defined a macro \verb|\norm| the package defines such a command. On this macro we build a few others.
+
+\begin{longtable}[l]{ l l p{6cm} }
+&\verb|\norm{a}| $\displaystyle\rightarrow\norm{a}$ & Norm of vector (scales with argument)\\
+&\verb|\lpnorm{f}| $\displaystyle\rightarrow\lpnorm{f}$ & $L_p$-norm of a function (subscript defaults to $2$)\\
+&\verb|\lpnorm[3]{f}| $\displaystyle\rightarrow\lpnorm[3]{f}$ & Optional argument for other subscript\\
+&\verb|\supnorm{f}| $\displaystyle\rightarrow\supnorm{f}$ & Supremum norm\\
+\end{longtable}
+Changing the default subscript $2$ can be done with the function \verb|\setlpdefault{}| which takes as its argument the new default subscript.
 
 \section{Combinatorics}
 
-Using \verb|\genfrac| from \verb|amsmath| the package defines two commands for Stirling numbers of the first and second kind.
-Example usage:
-\begin{verbatim}
-\stirlingfirstkind{n}{k}=
-\stirlingsecondkind{-k}{-n}
-\end{verbatim}
-gives the output
-\[
-\stirlingfirstkind{n}{k}=
-\stirlingsecondkind{-k}{-n}.
-\]
+Using \verb|\genfrac| from \verb|amsmath| the package defines two commands for Stirling numbers.
+
+\begin{longtable}[l]{ l l p{6cm} }
+&\verb|\stirlingfirstkind{n}{k}| $\displaystyle\rightarrow\stirlingfirstkind{n}{k}$ & Stirling number of first kind\\
+&\verb|\stirlingsecondkind{n}{k}| $\displaystyle\rightarrow\stirlingsecondkind{n}{k}$ & Stirling number of second kind\\
+\end{longtable}
 Shorthands for these two commands have yet to be defined.
 
 \section{Number Theory}
 Two commands (with identical results) \verb|\legendre| and \verb|\jacobi| are defined (again using \verb|\genfrac|) to typeset Legendre symbols and Jacobi symbols.
 The output is identical but their name differs to make the code more readable.
-Example usage:
-\begin{verbatim}
-\jacobi{a}{n} =
-\legendre{a}{p_1}^{e_1}
-\legendre{a}{p_2}^{e_2}\cdots 
-\legendre{a}{p_k}^{e_k}
-\end{verbatim}
-gives the output
-\[
-\jacobi{a}{n} =
-\legendre{a}{p_1}^{e_1}
-\legendre{a}{p_2}^{e_2}\cdots 
-\legendre{a}{p_k}^{e_k}
-\]
+\begin{longtable}[l]{ l l p{6cm} }
+&\verb|\legendre{a}{p_1}| $\displaystyle\rightarrow\legendre{a}{p_1}$ & Legendre symbol\\
+&\verb|\jacobi{a}{n}| $\displaystyle\rightarrow\jacobi{a}{n}$ & Jacobi symbol\\
+\end{longtable}
 
 \section{Names of mathematicians}
 This section describes three simple commands \verb|\mobius|, \verb|\cech| and \verb|\erdos| so you can mention \mobius, \cech\ and \erdos\ without any pain.

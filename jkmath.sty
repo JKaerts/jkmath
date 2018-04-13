@@ -91,6 +91,23 @@
 
 \newcommand{\restr}[1]{\left.#1\right|}
 
+% Norms
+\DeclarePairedDelimiter\jkm@thnorm{\lVert}{\rVert}
+\ProvideDocumentCommand{\norm}{ s m }{
+  \IfBooleanTF{#1}
+    {\jkm@thnorm{#2}}
+    {\jkm@thnorm*{#2}}
+}
+\ProvideDocumentCommand{\jkm@thlpdefault}{}{2}
+\ProvideDocumentCommand{\setlpdefault}{ m }{
+  \RenewDocumentCommand{\jkm@thlpdefault}{}{#1}
+}
+\ProvideDocumentCommand{\lpnorm}{ s O{\jkm@thlpdefault} m}{
+  \IfBooleanTF{#1}
+    {\norm*{#3}_{#2}}
+    {\norm{#3}_{#2}}
+}
+\ProvideDocumentCommand{\supnorm}{ m }{\lpnorm[\infty]{#1}}
 
 
 % Combinatorics
